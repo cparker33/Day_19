@@ -30,7 +30,7 @@ export default React.createClass({
 
     return {
 
-     data: {}
+     data: []
 
     }
   },
@@ -43,87 +43,83 @@ export default React.createClass({
 
       const appSt = store.getState()
 
-      // console.log(appSt)  
+      // console.log('Mount ', appSt.eData[0].length)  
 
       this.setState({
 
-        data: appSt.eData
+        data: appSt.eData[0]
 
       })
     })
   },
 
+  componentWillUnmount(){
+
+    store.unsubscribe()
+
+  },
+
+
   
 
   render() {
 
-    console.log(this.state.data)
+    // console.log('Test ')
+    // console.log('render ', this.state.data)
+    
 
     return (
 
+      <div id="cMidItemList">
+
+    {
+      this.state.data.map((obj, i) => {
+
+        return (
+
+          <div key={'cpar' + i} className="cItemCont">
+
+            <div className="cItemContInner">
+
+              <img className="cItemImg" alt=" " src={obj.Images[0].url_fullxfull} />
+
+              <div className="cItemTitle">{obj.title}</div>
 
 
-      <div 
-        className="cItemCont">
+              <div className="cShpPrcCont">
 
-        <div 
-          className="cItemContInner">
+                <div className="cItemStore">{obj.Shop.shop_name}</div>
 
-          <img 
-            alt="##"
-            className="cItemImg" 
-            src="kjhg"
-          />
+                <div className="cItemCost">{'$' + obj.price}</div>
 
-          <div 
-            className="cItemTitle">
-            Title
-          </div>
+              </div>
 
-          <div 
-            className="cShpPrcCont">
+                  <div className="cItemHoverMenu">
 
-            <div 
-            className="cItemStore">
-            Store
-            </div>
+                    <div className="cHambBtn">
 
-            <div 
-              className="cItemCost">
-            </div>
-
-          </div>
-
-          <div 
-            className="cHambBtn">
-
-            <div 
-              className="cHamb">
-              <i 
-                className="fa fa-bars" aria-hidden="true">
-              </i>
-            </div>
-                <div 
-                  className="cArr">
-                  <i 
-                    className="fa fa-sort-desc" aria-hidden="true">
-                  </i>
-                </div>
+                      <div className="cHamb"><i className="fa fa-bars" aria-hidden="true"></i></div>
+                      <div className="cArr"><i className="fa fa-sort-desc" aria-hidden="true"></i></div>
                                 
+                    </div>
+
+                    <div className="cHeart" ><i className="fa fa-heart" aria-hidden="true"></i></div>
+
+
+                  </div>
+
               </div>
 
-              <div 
-                className="cHeart">
-                <i 
-                  className="fa fa-heart" aria-hidden="true">
-                </i>
-              </div>
-
-         </div> 
-
-      </div>
+        </div>
 
 
+        )
+
+      })
+      
+     } 
+     </div>
+    
 
     )
 
